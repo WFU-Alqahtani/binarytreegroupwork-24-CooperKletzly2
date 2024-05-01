@@ -323,8 +323,11 @@ public class LinkedTree {
      * the root of the entire tree. 
      */
     public static int sumKeysTree(Node root) {
-        /*** LAB 10: IMPLEMENT THIS METHOD ***/
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+            return root.key + sumKeysTree(root.left) + sumKeysTree(root.right);
+
     }
     
     /*
@@ -335,13 +338,36 @@ public class LinkedTree {
      * key is missing.
      */
     public int sumAlongPath(int key) {
-        /*** LAB 10: IMPLEMENT THIS METHOD ***/
-        return 0;
+
+        Node curr = root;
+        int sum = 0;
+
+        while (curr != null){
+            sum += curr.key;
+
+            if (curr.key == key){
+                return sum;
+            }
+
+            if (curr.key < key){
+                curr = curr.right;
+            } else {
+                curr = curr.left;
+            }
+        }
+        return sum;
     }
     
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        
+
+
+        LinkedTree tree = new LinkedTree();
+        int[] keys = {8, 4, 10, 2};
+        tree.insertKeys(keys);
+        System.out.println(tree.sumKeys());
+
+        /*
         LinkedTree tree = new LinkedTree();
         tree.insert(7, "root node");
         tree.insert(9, "7's right child");
@@ -387,9 +413,21 @@ public class LinkedTree {
         
         System.out.print("postorder: ");
         tree.postorderPrint();
+        //System.out.println("test");
         
         System.out.print("  inorder: ");
         tree.inorderPrint();
         tree.levelOrderPrint();
+
+        /*LinkedTree tree2 = new LinkedTree();
+        int[] keys = {15, 23, 20, 10, 13, 6, 18, 35, 9, 24};
+        tree.insertKeys(keys);
+        tree.levelOrderPrint();
+
+         */
+
+
     }
+
+
 }
